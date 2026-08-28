@@ -41,7 +41,9 @@ const setTheme = (isLight) => {
   themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
   themeToggle.querySelector(".sr-only").textContent = isLight ? "Switch to dark mode" : "Switch to light mode";
   themeImages.forEach((image) => {
-    image.src = isLight ? image.dataset.light : image.dataset.dark;
+    const isMobile = window.innerWidth <= 800;
+    const mobileSource = isLight ? image.dataset.lightMobile : image.dataset.darkMobile;
+    image.src = isMobile && mobileSource ? mobileSource : (isLight ? image.dataset.light : image.dataset.dark);
   });
 };
 
@@ -52,6 +54,10 @@ themeToggle.addEventListener("click", () => {
   const isLight = !document.body.classList.contains("light-mode");
   setTheme(isLight);
   localStorage.setItem("orbit-theme", isLight ? "light" : "dark");
+});
+
+window.addEventListener("resize", () => {
+  setTheme(document.body.classList.contains("light-mode"));
 });
 
 const closeMenu = () => {
@@ -103,19 +109,21 @@ const satelliteOne = document.querySelector(".satellite-one");
 const satelliteTwo = document.querySelector(".satellite-two");
 const stars = document.querySelector(".stars");
 
-hero.addEventListener("pointermove", (e) => {
-  const x = (e.clientX / window.innerWidth - 0.5);
-  const y = (e.clientY / window.innerHeight - 0.5);
-  orbitOne.style.marginLeft = `${x * 20}px`;
-  orbitOne.style.marginTop = `${y * 15}px`;
-  orbitTwo.style.marginLeft = `${x * -30}px`;
-  orbitTwo.style.marginTop = `${y * -20}px`;
-  planet.style.marginLeft = `${x * -12}px`;
-  planet.style.marginTop = `${y * 10}px`;
-  satelliteOne.style.marginLeft = `${x * 42}px`;
-  satelliteOne.style.marginTop = `${y * -30}px`;
-  satelliteTwo.style.marginLeft = `${x * -58}px`;
-  satelliteTwo.style.marginTop = `${y * 42}px`;
-  stars.style.setProperty("--stars-x", `${x * -28}px`);
-  stars.style.setProperty("--stars-y", `${y * -20}px`);
-});
+if (hero) {
+  hero.addEventListener("pointermove", (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5);
+    const y = (e.clientY / window.innerHeight - 0.5);
+    orbitOne.style.marginLeft = `${x * 20}px`;
+    orbitOne.style.marginTop = `${y * 15}px`;
+    orbitTwo.style.marginLeft = `${x * -30}px`;
+    orbitTwo.style.marginTop = `${y * -20}px`;
+    planet.style.marginLeft = `${x * -12}px`;
+    planet.style.marginTop = `${y * 10}px`;
+    satelliteOne.style.marginLeft = `${x * 42}px`;
+    satelliteOne.style.marginTop = `${y * -30}px`;
+    satelliteTwo.style.marginLeft = `${x * -58}px`;
+    satelliteTwo.style.marginTop = `${y * 42}px`;
+    stars.style.setProperty("--stars-x", `${x * -28}px`);
+    stars.style.setProperty("--stars-y", `${y * -20}px`);
+  });
+}

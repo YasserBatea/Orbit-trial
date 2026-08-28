@@ -5,31 +5,43 @@
 }
 
 :root {
-  --bg: #000;
-  --fg: #f5f5f5;
-  --muted: #8a8a8a;
+  --canvas: #000;
+  --surface: rgba(255,255,255,.05);
+  --text-primary: #f5f5f5;
+  --text-secondary: #aaa;
+  --text-muted: #777;
+  --text-subtle: #555;
   --line: rgba(255,255,255,.12);
-  --soft: rgba(255,255,255,.05);
+  --bg: var(--canvas);
+  --fg: var(--text-primary);
+  --muted: var(--text-secondary);
+  --soft: var(--surface);
   --accent: #9c6b28;
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
+  background: var(--canvas);
+  color: var(--text-primary);
   font-family: "Inter", Arial, sans-serif;
   overflow-x: hidden;
   transition: background .45s ease, color .45s ease;
 }
 
 body.light-mode {
-  --bg: #f7f7f7;
-  --fg: #111;
-  --muted: #666;
-  --line: rgba(0,0,0,.16);
-  --soft: rgba(0,0,0,.06);
-  --accent: #111;
+  --canvas: #fff;
+  --surface: #f8f9fa;
+  --text-primary: #212529;
+  --text-secondary: #4a5568;
+  --text-muted: #4a5568;
+  --text-subtle: #6c757d;
+  --line: #e2e8f0;
+  --bg: var(--canvas);
+  --fg: var(--text-primary);
+  --muted: var(--text-secondary);
+  --soft: var(--surface);
+  --accent: #212529;
 }
 body.light-mode {
   background: var(--bg);
@@ -129,7 +141,7 @@ body.light-mode .scroll-progress span {
   display: flex;
   gap: 34px;
   font-size: 11px;
-  color: #aaa;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: .12em;
 }
@@ -168,21 +180,45 @@ body.light-mode .scroll-progress span {
 .navbar nav a:hover { color: white; }
 
 body.light-mode .navbar nav a:hover,
-body.light-mode footer a:hover { color: var(--accent); }
+body.light-mode footer a:hover { color: var(--text-primary); }
 body.light-mode .hero::after { background: radial-gradient(circle, rgba(0,0,0,.08), transparent 62%); }
 body.light-mode .stars { opacity: .13; filter: invert(1); }
 body.light-mode .cursor-glow { background: radial-gradient(circle, rgba(0,0,0,.12), transparent 65%); }
 body.light-mode .menu-toggle { background: rgba(255,255,255,.72); }
-body.light-mode .orbit { border-color: rgba(23,23,23,.16); }
+body.light-mode .orbit { border-color: rgba(0,0,0,.12); }
 body.light-mode .planet { background: var(--accent); box-shadow: 0 0 30px 8px rgba(0,0,0,.2); }
-body.light-mode em { color: #666; }
+body.light-mode em { color: var(--text-secondary); }
+body.light-mode .hero-content h1 { color: #000000; }
 body.light-mode .button-solid { background: #171717; color: #fff; }
 body.light-mode .button-solid { box-shadow: 0 12px 28px rgba(0,0,0,.14); }
-body.light-mode .button-ghost { color: #333; }
+body.light-mode .button-ghost { color: var(--text-primary); }
+body.light-mode .research-link { background: #212529; color: #fff; border-color: #212529; }
+body.light-mode .research-link:hover { background: #fff; color: #212529; border-color: #212529; }
 body.light-mode .member-avatar { background: radial-gradient(circle at 50% 45%, rgba(0,0,0,.1), transparent 30%), repeating-radial-gradient(circle at center, transparent 0 35px, rgba(0,0,0,.07) 36px 37px); }
-body.light-mode .member-avatar span { color: #111; }
-body.light-mode .journey-note strong { color: #111; }
-body.light-mode .contact::before, body.light-mode .contact::after { border-color: rgba(23,23,23,.14); }
+body.light-mode .member-avatar span { color: var(--text-primary); }
+body.light-mode .journey-note strong { color: var(--text-primary); }
+body.light-mode .contact::before, body.light-mode .contact::after { border-color: var(--line); }
+body.light-mode .about-text p,
+body.light-mode .research-statement,
+body.light-mode .research-card p,
+body.light-mode .contact-copy { color: var(--text-secondary); }
+body.light-mode .about-text .lead { color: var(--text-primary); }
+body.light-mode .section-label,
+body.light-mode .research-identity,
+body.light-mode .research-flow,
+body.light-mode .team-heading p,
+body.light-mode .journey-heading p,
+body.light-mode .journey-note,
+body.light-mode footer { color: var(--text-subtle); }
+body.light-mode .card-index,
+body.light-mode .research-card b,
+body.light-mode .competition > span,
+body.light-mode .competition small,
+body.light-mode .competition b,
+body.light-mode .member p { color: var(--text-subtle); }
+body.light-mode .research-card,
+body.light-mode .member-avatar { background-color: var(--surface); }
+body.light-mode .research-card:hover { border-color: #cbd5e1; background: #f4f5f7; }
 body.light-mode .competition-logo-isef,
 body.light-mode .competition-logo-space { filter: invert(1) grayscale(1) brightness(.75); }
 body.light-mode .competition-logo-eistf { filter: grayscale(1) brightness(.85); }
@@ -498,8 +534,53 @@ body.light-mode .orbit-satellite {
   display: block;
   transition: transform .4s ease, filter .4s ease;
 }
+.research-identity .research-unit-mark { width: min(330px, 72vw); }
 .research-identity:hover { color: #eee; transform: translateX(5px); }
 .research-identity:hover img { transform: rotate(-4deg) scale(1.06); filter: brightness(1.2); }
+.research-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 34px;
+  padding: 17px 20px 17px 24px;
+  border: 1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 600;
+  box-shadow: 0 12px 30px rgba(0,0,0,.16);
+  transition: transform .35s ease, box-shadow .35s ease, background .35s ease, color .35s ease;
+}
+.research-link::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+  opacity: .25;
+  transform: scale(.92);
+  transition: transform .35s ease, opacity .35s ease;
+}
+.research-link span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 17px;
+  line-height: 1;
+  transition: transform .35s ease;
+}
+.research-link:hover {
+  transform: translateY(-6px);
+  background: transparent;
+  color: var(--fg);
+  box-shadow: 0 18px 38px rgba(0,0,0,.22);
+}
+.research-link:hover::before { opacity: .5; transform: scale(1); }
+.research-link:hover span { transform: translate(3px, -3px) rotate(8deg); }
 .research-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -663,6 +744,45 @@ body.light-mode .orbit-satellite {
 body.light-mode .competition:hover .competition-logo-isef,
 body.light-mode .competition:hover .competition-logo-space { filter: invert(1) grayscale(1) brightness(.75); }
 body.light-mode .competition:hover .competition-logo-eistf { filter: grayscale(1) brightness(.85); }
+
+.research-page {
+  min-height: 100vh;
+  padding: 170px 9vw 100px;
+}
+.research-page-intro {
+  max-width: 760px;
+  margin-bottom: 90px;
+}
+.research-unit-logo {
+  width: min(660px, 85vw);
+  height: auto;
+  display: block;
+  margin-left: clamp(-56px, -4vw, -16px);
+  margin-bottom: 48px;
+  object-fit: contain;
+  object-position: left center;
+}
+.research-page-intro h1 { margin: 22px 0 28px; }
+.research-page-intro p {
+  max-width: 560px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 15px;
+}
+.research-empty {
+  max-width: 780px;
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 50px 30px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.research-empty img { width: 76px; height: 76px; object-fit: contain; margin-bottom: 22px; }
+.research-empty h2 { font-size: clamp(32px, 5vw, 60px); }
+.research-empty p { max-width: 420px; margin-top: 16px; color: var(--text-secondary); line-height: 1.7; font-size: 14px; }
+.research-back { display: inline-flex; margin-top: 38px; }
 
 .journey-note {
   display: flex;

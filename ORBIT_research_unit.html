@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ORBIT Research Unit publications" />
+  <title>Research Unit | ORBIT</title>
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor-glow"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <header class="navbar">
+    <a class="brand" href="index.html#home" aria-label="ORBIT home">
+      <img src="assets/orbit-logo.jpg" data-dark="assets/orbit-logo.jpg" data-light="assets/orbit-logo-light mode.jpg" alt="ORBIT logo">
+    </a>
+
+    <nav id="site-navigation">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="research.html">Research</a>
+      <a href="index.html#team">Team</a>
+      <a href="index.html#competitions">Competitions</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+        <img src="assets/dark-mode-button.jpg" data-dark="assets/dark-mode-button.jpg" data-light="assets/light-mode-button.jpg" alt="">
+        <span class="sr-only">Switch to light mode</span>
+      </button>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+        <span class="sr-only">Open navigation menu</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="research-page">
+    <section class="research-page-intro">
+      <img class="research-unit-logo" src="assets/orbtir_reasearch_dark.png" data-dark="assets/orbtir_reasearch_dark.png" data-light="assets/orbit_reaserch_light.png" data-dark-mobile="assets/orbtir_reasearch_dark_mobile.png" data-light-mobile="assets/orbit_reaserch_light_mobile.png" alt="ORBIT Research Unit logo">
+      <h1>Welcome to the<br><em>ORBIT Research Unit.</em></h1>
+      <p>This is the working archive of ORBIT research. Every paper we publish will live here as our ideas develop into scientific contributions.</p>
+    </section>
+
+    <section class="research-empty" aria-labelledby="research-empty-title">
+      <div>
+        <img src="assets/icon.png" data-dark="assets/icon.png" data-light="assets/icon-light mode.png" alt="">
+        <h2 id="research-empty-title">The archive is<br><em>still forming.</em></h2>
+        <p>There are no published research papers yet. This space will hold our work when it is ready to share.</p>
+      </div>
+    </section>
+
+    <a class="research-back button button-ghost" href="index.html#ORBIT_research_unit.html">← Back to ORBIT</a>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
