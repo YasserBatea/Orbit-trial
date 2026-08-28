@@ -1,4 +1,29 @@
 const glow = document.querySelector(".cursor-glow");
+const navbar = document.querySelector(".navbar");
+const menuToggle = document.querySelector(".menu-toggle");
+const menuLinks = document.querySelectorAll(".navbar nav a");
+
+const closeMenu = () => {
+  navbar.classList.remove("menu-open");
+  menuToggle.setAttribute("aria-expanded", "false");
+  menuToggle.querySelector(".sr-only").textContent = "Open navigation menu";
+};
+
+menuToggle.addEventListener("click", () => {
+  const isOpen = navbar.classList.toggle("menu-open");
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.querySelector(".sr-only").textContent = isOpen ? "Close navigation menu" : "Open navigation menu";
+});
+
+menuLinks.forEach((link) => link.addEventListener("click", closeMenu));
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeMenu();
+});
+
+document.addEventListener("pointerdown", (e) => {
+  if (!navbar.contains(e.target)) closeMenu();
+});
 
 window.addEventListener("pointermove", (e) => {
   glow.style.left = `${e.clientX}px`;
