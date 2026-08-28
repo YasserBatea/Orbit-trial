@@ -5,6 +5,7 @@ const menuLinks = document.querySelectorAll(".navbar nav a");
 const themeToggle = document.querySelector(".theme-toggle");
 const themeImages = document.querySelectorAll("[data-dark][data-light]");
 const scrollProgress = document.querySelector(".scroll-progress span");
+const interactiveElements = document.querySelectorAll(".research-card, .member-avatar, .competition");
 
 const updateScrollProgress = () => {
   const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -15,6 +16,24 @@ const updateScrollProgress = () => {
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
 window.addEventListener("resize", updateScrollProgress);
 updateScrollProgress();
+
+interactiveElements.forEach((element) => {
+  element.addEventListener("pointermove", (event) => {
+    if (event.pointerType === "touch") return;
+    const bounds = element.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    element.style.setProperty("--pointer-x", `${x * 100}%`);
+    element.style.setProperty("--pointer-y", `${y * 100}%`);
+    if (element.classList.contains("research-card") || element.classList.contains("member-avatar")) {
+      element.style.transform = `perspective(700px) rotateX(${(0.5 - y) * 5}deg) rotateY(${(x - 0.5) * 5}deg) translateY(-6px)`;
+    }
+  });
+
+  element.addEventListener("pointerleave", () => {
+    element.style.transform = "";
+  });
+});
 
 const setTheme = (isLight) => {
   document.body.classList.toggle("light-mode", isLight);
@@ -80,6 +99,9 @@ const hero = document.querySelector(".hero");
 const orbitOne = document.querySelector(".orbit-one");
 const orbitTwo = document.querySelector(".orbit-two");
 const planet = document.querySelector(".planet");
+const satelliteOne = document.querySelector(".satellite-one");
+const satelliteTwo = document.querySelector(".satellite-two");
+const stars = document.querySelector(".stars");
 
 hero.addEventListener("pointermove", (e) => {
   const x = (e.clientX / window.innerWidth - 0.5);
@@ -90,4 +112,10 @@ hero.addEventListener("pointermove", (e) => {
   orbitTwo.style.marginTop = `${y * -20}px`;
   planet.style.marginLeft = `${x * -12}px`;
   planet.style.marginTop = `${y * 10}px`;
+  satelliteOne.style.marginLeft = `${x * 42}px`;
+  satelliteOne.style.marginTop = `${y * -30}px`;
+  satelliteTwo.style.marginLeft = `${x * -58}px`;
+  satelliteTwo.style.marginTop = `${y * 42}px`;
+  stars.style.setProperty("--stars-x", `${x * -28}px`);
+  stars.style.setProperty("--stars-y", `${y * -20}px`);
 });
