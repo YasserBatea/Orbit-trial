@@ -9,7 +9,7 @@ const scrollProgress = document.querySelector(".scroll-progress span");
 const updateScrollProgress = () => {
   const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
   const progress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
-  scrollProgress.style.width = `${progress}%`;
+  scrollProgress.style.transform = `scaleX(${progress / 100})`;
 };
 
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
