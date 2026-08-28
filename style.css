@@ -535,8 +535,8 @@ body.light-mode .orbit-satellite {
   transition: transform .4s ease, filter .4s ease;
 }
 .research-identity .research-unit-mark { width: min(330px, 72vw); }
-.research-identity:hover { color: #eee; transform: translateX(5px); }
-.research-identity:hover img { transform: rotate(-4deg) scale(1.06); filter: brightness(1.2); }
+.research-identity:not(.research-unit-identity):hover { color: #eee; transform: translateX(5px); }
+.research-identity:not(.research-unit-identity):hover img { transform: rotate(-4deg) scale(1.06); filter: brightness(1.2); }
 .research-link {
   display: inline-flex;
   align-items: center;
