@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ORBIT page not found" />
+  <title>404 | ORBIT</title>
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="error-page">
+  <div class="noise"></div>
+  <div class="cursor-glow"></div>
+  <div class="stars" aria-hidden="true"></div>
+
+  <header class="navbar">
+    <a class="brand" href="index.html#home" aria-label="ORBIT home">
+      <img src="assets/orbit-logo.jpg" data-dark="assets/orbit-logo.jpg" data-light="assets/orbit-logo-light mode.jpg" alt="ORBIT logo">
+    </a>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+        <img src="assets/dark-mode-button.jpg" data-dark="assets/dark-mode-button.jpg" data-light="assets/light-mode-button.jpg" alt="">
+        <span class="sr-only">Switch to light mode</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="error-content">
+    <div class="error-orbit" aria-hidden="true">
+      <span></span>
+      <i></i>
+    </div>
+    <p class="section-label">SIGNAL LOST / 404</p>
+    <h1>Nothing<br><em>in orbit.</em></h1>
+    <p class="error-copy">This page drifted beyond the horizon, Not Found.</p>
+    <a class="button button-solid" href="index.html#home">Return to ORBIT <span>↗</span></a>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

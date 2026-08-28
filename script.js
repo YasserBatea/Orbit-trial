@@ -8,6 +8,7 @@ const scrollProgress = document.querySelector(".scroll-progress span");
 const interactiveElements = document.querySelectorAll(".research-card, .member-avatar, .competition");
 
 const updateScrollProgress = () => {
+  if (!scrollProgress) return;
   const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
   const progress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
   scrollProgress.style.transform = `scaleX(${progress / 100})`;
@@ -60,27 +61,29 @@ window.addEventListener("resize", () => {
   setTheme(document.body.classList.contains("light-mode"));
 });
 
-const closeMenu = () => {
-  navbar.classList.remove("menu-open");
-  menuToggle.setAttribute("aria-expanded", "false");
-  menuToggle.querySelector(".sr-only").textContent = "Open navigation menu";
-};
+if (menuToggle) {
+  const closeMenu = () => {
+    navbar.classList.remove("menu-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.querySelector(".sr-only").textContent = "Open navigation menu";
+  };
 
-menuToggle.addEventListener("click", () => {
-  const isOpen = navbar.classList.toggle("menu-open");
-  menuToggle.setAttribute("aria-expanded", String(isOpen));
-  menuToggle.querySelector(".sr-only").textContent = isOpen ? "Close navigation menu" : "Open navigation menu";
-});
+  menuToggle.addEventListener("click", () => {
+    const isOpen = navbar.classList.toggle("menu-open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.querySelector(".sr-only").textContent = isOpen ? "Close navigation menu" : "Open navigation menu";
+  });
 
-menuLinks.forEach((link) => link.addEventListener("click", closeMenu));
+  menuLinks.forEach((link) => link.addEventListener("click", closeMenu));
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeMenu();
-});
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
 
-document.addEventListener("pointerdown", (e) => {
-  if (!navbar.contains(e.target)) closeMenu();
-});
+  document.addEventListener("pointerdown", (e) => {
+    if (!navbar.contains(e.target)) closeMenu();
+  });
+}
 
 window.addEventListener("pointermove", (e) => {
   glow.style.left = `${e.clientX}px`;
