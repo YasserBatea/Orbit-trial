@@ -10,15 +10,26 @@
   --muted: #8a8a8a;
   --line: rgba(255,255,255,.12);
   --soft: rgba(255,255,255,.05);
+  --accent: #9c6b28;
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
-  background: #000;
+  background: var(--bg);
   color: var(--fg);
   font-family: "Inter", Arial, sans-serif;
   overflow-x: hidden;
+  transition: background .45s ease, color .45s ease;
+}
+
+body.light-mode {
+  --bg: #f4f0e8;
+  --fg: #171717;
+  --muted: #6e6a63;
+  --line: rgba(23,23,23,.16);
+  --soft: rgba(23,23,23,.06);
+  --accent: #9c6b28;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -44,6 +55,29 @@ a { color: inherit; text-decoration: none; }
   transition: left .15s ease-out, top .15s ease-out;
 }
 
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: 101;
+  background: transparent;
+  pointer-events: none;
+}
+.scroll-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--fg);
+  box-shadow: 0 0 12px rgba(255,255,255,.55);
+  transition: width .08s linear;
+}
+body.light-mode .scroll-progress span {
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(156,107,40,.45);
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -55,7 +89,8 @@ a { color: inherit; text-decoration: none; }
   justify-content: space-between;
   z-index: 50;
   backdrop-filter: blur(14px);
-  background: linear-gradient(to bottom, rgba(0,0,0,.86), transparent);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 92%, transparent), transparent);
+  transition: background .45s ease;
 }
 
 .brand img {
@@ -66,6 +101,23 @@ a { color: inherit; text-decoration: none; }
   transition: transform .35s ease, filter .35s ease;
 }
 .brand:hover img { transform: scale(1.04); filter: brightness(1.2); }
+
+.header-actions { display: flex; align-items: center; gap: 12px; }
+
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color .3s ease, transform .3s ease, background .3s ease;
+}
+.theme-toggle:hover { border-color: var(--accent); transform: rotate(12deg) scale(1.06); background: var(--soft); }
+.theme-toggle img { width: 25px; height: 25px; object-fit: contain; }
 
 .navbar nav {
   display: flex;
@@ -108,6 +160,23 @@ a { color: inherit; text-decoration: none; }
 
 .navbar nav a { transition: color .3s; }
 .navbar nav a:hover { color: white; }
+
+body.light-mode .navbar nav a:hover,
+body.light-mode footer a:hover { color: var(--accent); }
+body.light-mode .hero::after { background: radial-gradient(circle, rgba(156,107,40,.12), transparent 62%); }
+body.light-mode .stars { opacity: .13; filter: invert(1); }
+body.light-mode .cursor-glow { background: radial-gradient(circle, rgba(156,107,40,.16), transparent 65%); }
+body.light-mode .menu-toggle { background: rgba(244,240,232,.72); }
+body.light-mode .orbit { border-color: rgba(23,23,23,.16); }
+body.light-mode .planet { background: var(--accent); box-shadow: 0 0 30px 8px rgba(156,107,40,.25); }
+body.light-mode em { color: #8f7654; }
+body.light-mode .button-solid { background: #171717; color: #f4f0e8; }
+body.light-mode .button-ghost { color: #403d37; }
+body.light-mode .member-avatar { background: radial-gradient(circle at 50% 45%, rgba(156,107,40,.16), transparent 30%), repeating-radial-gradient(circle at center, transparent 0 35px, rgba(23,23,23,.07) 36px 37px); }
+body.light-mode .contact::before, body.light-mode .contact::after { border-color: rgba(23,23,23,.14); }
+body.light-mode .competition-logo-isef,
+body.light-mode .competition-logo-space { filter: invert(1) grayscale(1) brightness(.75); }
+body.light-mode .competition-logo-eistf { filter: grayscale(0) brightness(.95); }
 
 .nav-cta {
   border: 1px solid var(--line);
@@ -462,6 +531,9 @@ em { font-style: normal; color: #777; }
 .competition small, .competition-logo { transition: color .3s ease, letter-spacing .3s ease, transform .35s ease, filter .35s ease; }
 .competition:hover small { color: #aaa; }
 .competition:hover .competition-logo { filter: grayscale(0) brightness(1); transform: scale(1.05); }
+body.light-mode .competition:hover .competition-logo-isef,
+body.light-mode .competition:hover .competition-logo-space { filter: invert(1) grayscale(1) brightness(.75); }
+body.light-mode .competition:hover .competition-logo-eistf { filter: grayscale(0) brightness(.95); }
 
 .journey-note {
   display: flex;
@@ -542,6 +614,7 @@ footer a:hover { color: white; }
   .navbar { padding: 15px 5vw; }
   .brand img { width: 82px; height: auto; }
   .menu-toggle { display: block; position: relative; z-index: 2; }
+  .header-actions { gap: 8px; }
   .navbar nav {
     position: absolute;
     top: 100%;
@@ -552,7 +625,7 @@ footer a:hover { color: white; }
     gap: 0;
     padding: 8px 0;
     border: 1px solid var(--line);
-    background: rgba(0,0,0,.94);
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);

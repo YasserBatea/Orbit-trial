@@ -15,10 +15,11 @@
 <body>
   <div class="noise"></div>
   <div class="cursor-glow"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
   <header class="navbar">
     <a class="brand" href="#home" aria-label="ORBIT home">
-      <img src="assets/orbit-logo.jpg" alt="ORBIT logo">
+      <img src="assets/orbit-logo.jpg" data-dark="assets/orbit-logo.jpg" data-light="assets/orbit-logo-light mode.jpg" alt="ORBIT logo">
     </a>
 
     <nav id="site-navigation">
@@ -30,12 +31,18 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
-      <span class="sr-only">Open navigation menu</span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+        <img src="assets/dark-mode-button.jpg" data-dark="assets/dark-mode-button.jpg" data-light="assets/light-mode-button.jpg" alt="">
+        <span class="sr-only">Switch to light mode</span>
+      </button>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+        <span class="sr-only">Open navigation menu</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
 
   </header>
 
@@ -47,7 +54,7 @@
       <div class="planet"></div>
 
       <div class="hero-content reveal">
-        <h1>Think <span class="hero-word">bey<img class="hero-icon" src="assets/icon.png" alt="O">nd</span><br><em>the horizon.</em></h1>
+        <h1>Think <span class="hero-word">bey<img class="hero-icon" src="assets/icon.png" data-dark="assets/icon.png" data-light="assets/icon-light mode.png" alt="O">nd</span><br><em>the horizon.</em></h1>
         <p class="hero-copy">
           ORBIT is a long-term scientific research team exploring the
           intersection of artificial intelligence, technology, engineering,
@@ -96,7 +103,7 @@
       <div class="research-intro reveal">
         <div>
           <div class="research-identity">
-            <img src="assets/icon.png" alt="ORBIT research team identity">
+            <img src="assets/icon.png" data-dark="assets/icon.png" data-light="assets/icon-light mode.png" alt="ORBIT research team identity">
             <span>ORBIT RESEARCH UNIT</span>
           </div>
           <h2>Research<br><em>comes first.</em></h2>
@@ -228,7 +235,7 @@
 
   <footer>
     <div class="footer-brand">
-      <img src="assets/orbit-logo.jpg" alt="ORBIT scientific research team">
+      <img src="assets/orbit-logo.jpg" data-dark="assets/orbit-logo.jpg" data-light="assets/orbit-logo-light mode.jpg" alt="ORBIT scientific research team">
     </div>
     <p>© 2026 ORBIT Scientific Team.</p>
     <a href="#home">Back to top ↑</a>

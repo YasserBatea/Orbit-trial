@@ -2,6 +2,38 @@ const glow = document.querySelector(".cursor-glow");
 const navbar = document.querySelector(".navbar");
 const menuToggle = document.querySelector(".menu-toggle");
 const menuLinks = document.querySelectorAll(".navbar nav a");
+const themeToggle = document.querySelector(".theme-toggle");
+const themeImages = document.querySelectorAll("[data-dark][data-light]");
+const scrollProgress = document.querySelector(".scroll-progress span");
+
+const updateScrollProgress = () => {
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
+  scrollProgress.style.width = `${progress}%`;
+};
+
+window.addEventListener("scroll", updateScrollProgress, { passive: true });
+window.addEventListener("resize", updateScrollProgress);
+updateScrollProgress();
+
+const setTheme = (isLight) => {
+  document.body.classList.toggle("light-mode", isLight);
+  themeToggle.setAttribute("aria-pressed", String(isLight));
+  themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+  themeToggle.querySelector(".sr-only").textContent = isLight ? "Switch to dark mode" : "Switch to light mode";
+  themeImages.forEach((image) => {
+    image.src = isLight ? image.dataset.light : image.dataset.dark;
+  });
+};
+
+const savedTheme = localStorage.getItem("orbit-theme");
+setTheme(savedTheme === "light");
+
+themeToggle.addEventListener("click", () => {
+  const isLight = !document.body.classList.contains("light-mode");
+  setTheme(isLight);
+  localStorage.setItem("orbit-theme", isLight ? "light" : "dark");
+});
 
 const closeMenu = () => {
   navbar.classList.remove("menu-open");
